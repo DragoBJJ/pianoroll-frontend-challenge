@@ -1,7 +1,10 @@
-import PianoRoll from "./pianoroll.js";
+import PianoRoll from "./pianoroll";
 
 export class PianoRollDisplay {
-  constructor(csvURL: string) {
+  private csvURL?: string;
+  private data: any;
+
+  constructor(csvURL?: string) {
     this.csvURL = csvURL;
     this.data = null;
   }
@@ -44,6 +47,7 @@ export class PianoRollDisplay {
     if (!this.data) return;
 
     const pianoRollContainer = document.getElementById("pianoRollContainer");
+    if (!pianoRollContainer) return;
     pianoRollContainer.innerHTML = "";
     for (let it = 0; it < 20; it++) {
       const start = it * 60;
@@ -53,7 +57,7 @@ export class PianoRollDisplay {
       const { cardDiv, svg } = this.preparePianoRollCard(it);
 
       pianoRollContainer.appendChild(cardDiv);
-      const roll = new PianoRoll(svg, partData);
+      new PianoRoll(svg, partData);
     }
   }
 }

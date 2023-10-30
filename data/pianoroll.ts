@@ -1,4 +1,10 @@
-export function generateGradientTable(startColor, endColor, steps) {
+import { Color, Sequence } from "./types";
+
+export function generateGradientTable(
+  startColor: Color,
+  endColor: Color,
+  steps: number
+) {
   const gradientTable = [];
   for (let i = 0; i < steps; i++) {
     const r = startColor.r + ((endColor.r - startColor.r) * i) / (steps - 1);
@@ -12,9 +18,18 @@ export function generateGradientTable(startColor, endColor, steps) {
 }
 
 export default class PianoRoll {
-  constructor(svgElement, sequence) {
+  private backgroundColormap: string[];
+  private noteColormap: string[];
+  private svgElement: SVGElement;
+  private note_height: number | null;
+  private end: number;
+  private start: number;
+
+  constructor(svgElement: SVGElement, sequence: Sequence) {
     this.svgElement = svgElement;
-    this.end = null;
+    this.note_height = null;
+    this.end = 0;
+    this.start = 0;
 
     // PianoRoll brand #5DB5D5
     const backgroundStartColor = { r: 93, g: 181, b: 213 };
@@ -39,11 +54,11 @@ export default class PianoRoll {
     this.drawPianoRoll(sequence);
   }
 
-  timeToX(time) {
+  timeToX(time: number) {
     return time / this.end;
   }
 
-  drawPianoRoll(sequence) {
+  drawPianoRoll(sequence: Sequence) {
     this.start = sequence[0].start;
     this.end = sequence[sequence.length - 1].end - this.start;
     // Extract just the pitches to prepare the SVG parameters
@@ -101,7 +116,7 @@ export default class PianoRoll {
     });
   }
 
-  drawEmptyPianoRoll(pitch_min, pitch_max) {
+  drawEmptyPianoRoll(pitch_min: number, pitch_max: number) {
     const pitch_span = pitch_max - pitch_min;
     for (let it = pitch_min; it <= pitch_max + 1; it++) {
       // Black keys
