@@ -49,8 +49,10 @@ export default class PianoRoll {
       128
     );
 
-    this.svgElement.setAttribute("viewBox", "0 0 1 1");
-    this.svgElement.setAttribute("preserveAspectRatio", "none");
+    if (this.svgElement) {
+      this.svgElement.setAttribute("viewBox", "0 0 1 1");
+      this.svgElement.setAttribute("preserveAspectRatio", "none");
+    }
     this.drawPianoRoll(sequence);
   }
 
@@ -123,7 +125,9 @@ export default class PianoRoll {
       note_rectangle.classList.add("note-rectangle");
 
       // Draw it
-      this.svgElement.appendChild(note_rectangle);
+      if (this.svgElement) {
+        this.svgElement.appendChild(note_rectangle);
+      }
     });
   }
 
@@ -147,7 +151,9 @@ export default class PianoRoll {
         rect.setAttribute("y", `${y}`);
         rect.setAttribute("width", `${w}`);
         rect.setAttribute("height", `${h}`);
-        this.svgElement.appendChild(rect);
+        if (this.svgElement) {
+          this.svgElement.appendChild(rect);
+        }
       }
 
       // Key separation
@@ -167,7 +173,10 @@ export default class PianoRoll {
       }
       line.setAttribute("stroke-width", `${line_width}`);
       line.setAttribute("stroke", "black");
-      this.svgElement.appendChild(line);
+
+      if (this.svgElement) {
+        this.svgElement.appendChild(line);
+      }
     }
   }
 }

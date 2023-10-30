@@ -1,7 +1,7 @@
 import { devices } from "@/providers/mediaQuery";
 import styled from "styled-components";
 
-export const PianoRollsWrapper = styled.main`
+export const PianoRollsWrapper = styled.div`
   overflow: auto;
   scroll-behavior: auto;
   display: grid;
