@@ -1,7 +1,10 @@
 "use-client";
 
-import { PianoRollsWrapper, Main } from "./style";
+import { ReactNode } from "react";
+import { PianoRollsWrapper } from "./style";
 
-export const PianoRollsTemplate = () => {
-  return <PianoRollsWrapper id="pianoRollContainer"></PianoRollsWrapper>;
+export const PianoRollsTemplate = ({ children }: { children: ReactNode }) => {
+  return (
+    <PianoRollsWrapper id="pianoRollContainer">{children}</PianoRollsWrapper>
+  );
 };

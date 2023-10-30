@@ -54,6 +54,17 @@ export default class PianoRoll {
     this.drawPianoRoll(sequence);
   }
 
+  getPianoData() {
+    return {
+      backgroundColormap: this.backgroundColormap,
+      noteColormap: this.noteColormap,
+      svgElement: this.svgElement,
+      note_height: this.note_height,
+      end: this.end,
+      start: this.start,
+    };
+  }
+
   timeToX(time: number) {
     return time / this.end;
   }

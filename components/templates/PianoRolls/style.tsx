@@ -2,30 +2,23 @@ import { devices } from "@/providers/mediaQuery";
 import styled from "styled-components";
 
 export const PianoRollsWrapper = styled.main`
-  position: relative;
+  overflow: auto;
+  scroll-behavior: auto;
   display: grid;
   border: 1px solid red;
-  height: 100vh;
-  width: 100vw;
+  height: 600px;
+  width: 100%;
   padding: 2rem;
-  grid-template-rows: 0.1fr 0.9fr;
   grid-template-columns: 1fr;
-  grid-template-areas:
-    "nav nav nav"
-    "main main main";
+  grid-template-rows: 1fr;
 
   @media only screen and (${devices.md}) {
-    grid-template-rows: 0.1fr 0.9fr;
-    grid-template-columns: 0.8fr 0.2fr;
-    grid-template-areas:
-      "nav nav nav"
-      "main main main";
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
   }
-`;
 
-export const Main = styled.div`
-  display: flex;
-  grid-area: main;
-  width: 100%;
-  height: 100%;
+  @media only screen and (${devices.lg}) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
 `;

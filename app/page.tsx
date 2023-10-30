@@ -3,14 +3,24 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import { PianoRollsTemplate } from "@/components/templates/PianoRolls/PianoRollsTemplate";
-import { PianoRollDisplay } from "@/data/app";
+import { PianoRollDisplay, PianoRollType } from "@/data/app";
+import { useEffect, useState } from "react";
+import { PianoRoll } from "@/components/molecules/PianoRoll";
 
 export default function Home() {
-  const getPianoRollData = () => {
-    const csvToSvg = new PianoRollDisplay();
-    csvToSvg.generateSVGs();
-  };
+  const [rollData, setRollData] = useState<PianoRollType[]>();
 
+  useEffect(() => {
+    const getPianoRollData = async () => {
+      const csvToSvg = new PianoRollDisplay();
+      await csvToSvg.generateSVGs();
+      const rollData = csvToSvg.getRollData();
+      setRollData(rollData);
+    };
+    getPianoRollData();
+  }, []);
+
+  console.log("rollData", rollData);
   return (
     <main className={styles.main}>
       <nav className="navbar">
@@ -21,10 +31,21 @@ export default function Home() {
 
       <h1>Welcome to PianoRoll frontend coding challenge!</h1>
 
-      <div id="buttonContainer" onClick={getPianoRollData}>
+      <div id="buttonContainer">
         <button id="loadCSV">Load Piano Rolls!</button>
       </div>
-      <PianoRollsTemplate />
+
+      {rollData && rollData?.length > 0 ? (
+        <PianoRollsTemplate>
+          {rollData.map((roll, index) => {
+            return (
+              <PianoRoll key={index} id={index} svgElement={roll.svgElement} />
+            );
+          })}
+        </PianoRollsTemplate>
+      ) : (
+        <></>
+      )}
     </main>
   );
 }
