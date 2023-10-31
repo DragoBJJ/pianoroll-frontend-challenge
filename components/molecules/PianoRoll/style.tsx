@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   width: 80%;
 `;
 
-export const Text = styled.p`
+export const Text = styled.div`
   margin-top: 10px;
   text-align: center;
 `;

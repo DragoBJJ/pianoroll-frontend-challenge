@@ -1,6 +1,6 @@
 import PianoRoll from "./pianoroll";
 
-export type PianoRollType = {
+export type PianoRollData = {
   backgroundColormap: string[];
   end: number;
   noteColormap: string[];
@@ -8,15 +8,15 @@ export type PianoRollType = {
   start: number;
   svgElement: SVGElement;
 };
+
 export class PianoRollDisplay {
   private csvURL?: string;
   private data: any;
-  private pianoRollData: any[];
+  private pianoRools: PianoRoll[];
 
   constructor(csvURL?: string) {
     this.csvURL = csvURL;
-
-    this.pianoRollData = [];
+    this.pianoRools = [];
   }
 
   async loadPianoRollData() {
@@ -70,11 +70,8 @@ export class PianoRollDisplay {
       const pianoRoll = new PianoRoll(svg, partData);
 
       // Pushed data because my react commponents need it
-      this.pianoRollData.push({
-        svg,
-        partData,
-      });
+      this.pianoRools.push(pianoRoll);
     }
-    return this.pianoRollData;
+    return this.pianoRools;
   }
 }

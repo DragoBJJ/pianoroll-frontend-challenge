@@ -1,25 +1,18 @@
 "use-client";
-import PianoRoll from "../../../data/pianoroll";
 import { Wrapper, Text } from "./style";
-import SvgIcon from "../../atoms/Svg";
-import { useEffect } from "react";
-import { Sequence } from "@/data/types";
+import { PianoRollData } from "@/data/app";
 
 type PianoRollType = {
-  id: number;
-  svgElement: SVGElement;
-  partData: Sequence;
+  pianoData: PianoRollData;
 };
 
-export const Piano = ({ id, svgElement, partData }: PianoRollType) => {
-  useEffect(() => {
-    new PianoRoll(svgElement, partData);
-  }, [partData, svgElement]);
-
+export const Piano = ({ pianoData }: PianoRollType) => {
+  const svg = pianoData.svgElement;
+  console.log("svg", pianoData);
   return (
     <Wrapper className="piano-roll-card">
-      <Text>This is a piano roll number {id}</Text>
-      {/* <SvgIcon /> */}
+      <svg />
+      <Text>This is a piano roll number {pianoData.start}</Text>
     </Wrapper>
   );
 };
