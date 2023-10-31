@@ -12,20 +12,18 @@ export const PianoRollContainer = () => {
     setPianoRoolData(await pianoRollFacotry.getPartData());
   };
 
+  console.log("pianoRoolData", pianoRoolData);
+
   return (
     <>
       <div id="buttonContainer" onClick={getPianoRollData}>
         <button id="loadCSV">Load Piano Rolls!</button>
       </div>
       <PianoRollsTemplate>
-        {pianoRoolData ? (
+        {pianoRoolData && pianoRoolData.length > 0 ? (
           pianoRoolData.map((sequence, index) => {
             return (
-              <PianoRollCard
-                key={sequence[0].start}
-                rollId={index}
-                sequence={sequence}
-              />
+              <PianoRollCard key={index} rollID={index} sequence={sequence} />
             );
           })
         ) : (

@@ -24,12 +24,14 @@ export default class PianoRoll {
   private note_height: number | null;
   private end: number;
   private start: number;
+  public _id: number;
 
-  constructor(svgElement: SVGElement, sequence: Sequence) {
+  constructor(pianoRollID: number, svgElement: SVGElement, sequence: Sequence) {
     this.svgElement = svgElement;
     this.note_height = null;
     this.end = 0;
     this.start = 0;
+    this._id = pianoRollID;
 
     // PianoRoll brand #5DB5D5
     const backgroundStartColor = { r: 93, g: 181, b: 213 };

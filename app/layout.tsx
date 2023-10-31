@@ -1,6 +1,7 @@
 import { StyledProvider } from "@/providers/StyledProviders";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import { PianoContextProvider } from "./context/pianoContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <StyledProvider>
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          <PianoContextProvider>{children}</PianoContextProvider>
+        </body>
       </StyledProvider>
     </html>
   );
