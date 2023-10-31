@@ -1,4 +1,4 @@
-import PianoRoll from "./pianoroll";
+import { Sequence } from "./types";
 
 export type PianoRollData = {
   backgroundColormap: string[];
@@ -12,16 +12,18 @@ export type PianoRollData = {
 export class PianoRollDisplay {
   private csvURL?: string;
   private data: any;
-  private pianoRools: PianoRoll[];
+  private partData: Sequence[];
+  private API_URL: string;
 
   constructor(csvURL?: string) {
     this.csvURL = csvURL;
-    this.pianoRools = [];
+    this.partData = [];
+    this.API_URL = "https://pianoroll.ai/random_notes";
   }
 
   async loadPianoRollData() {
     try {
-      const response = await fetch("https://pianoroll.ai/random_notes");
+      const response = await fetch(this.API_URL);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -31,47 +33,15 @@ export class PianoRollDisplay {
     }
   }
 
-  preparePianoRollCard(rollId: number) {
-    const cardDiv = document.createElement("div");
-    cardDiv.classList.add("piano-roll-card");
-
-    // Create and append other elements to the card container as needed
-    const descriptionDiv = document.createElement("div");
-    descriptionDiv.classList.add("description");
-    descriptionDiv.textContent = `This is a piano roll number ${rollId}`;
-    cardDiv.appendChild(descriptionDiv);
-
-    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-
-    svg.classList.add("piano-roll-svg");
-    svg.setAttribute("width", "80%");
-    svg.setAttribute("height", "150");
-
-    // Append the SVG to the card container
-    cardDiv.appendChild(svg);
-
-    return { svg, cardDiv };
-  }
-
-  async generateSVGs() {
+  async getPartData(): Promise<Sequence[]> {
     if (!this.data) await this.loadPianoRollData();
-
-    const pianoRollContainer = document.getElementById("pianoRollContainer");
-    if (!pianoRollContainer) return;
-    pianoRollContainer.innerHTML = "";
+    const CONST_SIZE = 60;
     for (let it = 0; it < 20; it++) {
-      const start = it * 60;
-      const end = start + 60;
-      const partData = this.data.slice(start, end);
-
-      const { svg, cardDiv } = this.preparePianoRollCard(it);
-
-      pianoRollContainer.appendChild(cardDiv);
-      const pianoRoll = new PianoRoll(svg, partData);
-
-      // Pushed data because my react commponents need it
-      this.pianoRools.push(pianoRoll);
+      const start = it * CONST_SIZE;
+      const end = start + CONST_SIZE;
+      const partData: Sequence = this.data.slice(start, end);
+      this.partData.push(partData);
     }
-    return this.pianoRools;
+    return this.partData;
   }
 }
