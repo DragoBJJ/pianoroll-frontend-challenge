@@ -1,18 +1,29 @@
-"use-client";
-import { Wrapper, Text } from "./style";
-import { PianoRollData } from "@/data/app";
+import { SvgIcon } from "@/components/atoms/Svg";
+import PianoRoll from "@/data/pianoroll";
+import { Sequence } from "@/data/types";
+import { memo, useEffect, useRef } from "react";
+import { Text, Wrapper } from "./style";
 
-type PianoRollType = {
-  pianoData: PianoRollData;
-};
+export const PianoRollCard = memo(
+  ({ rollId, sequence }: { rollId: number; sequence: Sequence }) => {
+    const svgRef = useRef<SVGSVGElement>();
 
-export const Piano = ({ pianoData }: PianoRollType) => {
-  const svg = pianoData.svgElement;
-  console.log("svg", pianoData);
-  return (
-    <Wrapper className="piano-roll-card">
-      <svg />
-      <Text>This is a piano roll number {pianoData.start}</Text>
-    </Wrapper>
-  );
-};
+    const saveRef = (ref: SVGSVGElement | null) => {
+      if (!ref) return;
+      svgRef.current = ref;
+    };
+
+    useEffect(() => {
+      if (svgRef.current && sequence.length > 0) {
+        new PianoRoll(svgRef.current, sequence);
+      }
+    }, [sequence]);
+
+    return (
+      <Wrapper className="piano-roll-card">
+        <Text>This is a piano roll number {rollId}</Text>
+        <SvgIcon saveRef={saveRef} />
+      </Wrapper>
+    );
+  }
+);

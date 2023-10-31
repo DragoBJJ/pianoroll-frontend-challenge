@@ -1,7 +1,7 @@
 import { PianoRollsTemplate } from "@/components/templates/PianoRolls/PianoRollsTemplate";
 import { PianoRollDisplay } from "@/data/app";
-import { useEffect, useState } from "react";
-import { PianoRollCard } from "./PianoRollCard";
+import { useState } from "react";
+import { PianoRollCard } from ".";
 import { Sequence } from "@/data/types";
 
 export const PianoRollContainer = () => {
@@ -12,21 +12,26 @@ export const PianoRollContainer = () => {
     setPianoRoolData(await pianoRollFacotry.getPartData());
   };
 
-  useEffect(() => {
-    getPianoRollData();
-  }, []);
-
   return (
-    <PianoRollsTemplate>
-      {pianoRoolData ? (
-        pianoRoolData.map((sequence, index) => {
-          return (
-            <PianoRollCard key={index} rollId={index} sequence={sequence} />
-          );
-        })
-      ) : (
-        <></>
-      )}
-    </PianoRollsTemplate>
+    <>
+      <div id="buttonContainer" onClick={getPianoRollData}>
+        <button id="loadCSV">Load Piano Rolls!</button>
+      </div>
+      <PianoRollsTemplate>
+        {pianoRoolData ? (
+          pianoRoolData.map((sequence, index) => {
+            return (
+              <PianoRollCard
+                key={sequence[0].start}
+                rollId={index}
+                sequence={sequence}
+              />
+            );
+          })
+        ) : (
+          <></>
+        )}
+      </PianoRollsTemplate>
+    </>
   );
 };

@@ -12,9 +12,6 @@ export default function Home() {
         </div>
       </nav>
       <h1>Welcome to PianoRoll frontend coding challenge!</h1>
-      <div id="buttonContainer">
-        <button id="loadCSV">Load Piano Rolls!</button>
-      </div>
       <PianoRollContainer />
     </main>
   );
