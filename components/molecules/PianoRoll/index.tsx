@@ -4,21 +4,17 @@ import PianoRoll from "@/data/pianoroll";
 import { Sequence } from "@/data/types";
 import { memo, useEffect, useRef } from "react";
 import { Text, Wrapper } from "./style";
-import { UsePianoContext } from "@/app/context/pianoContext";
+
 import Link from "next/link";
-import { Svg } from "@/components/atoms/Svg";
+import { Svg } from "@/components/atoms/Svg/Svg";
 
 export const PianoRollCard = memo(
   ({ rollID, sequence }: { rollID: number; sequence: Sequence }) => {
-    const svgRef = useRef<SVGSVGElement>();
+    const svgRef = useRef<SVGSVGElement>(null);
 
-    const { addPiano, removePiano } = UsePianoContext();
     useEffect(() => {
       if (!svgRef.current || !sequence.length) return;
-      const piano = new PianoRoll(rollID, svgRef.current, sequence);
-      addPiano(piano);
-
-      return () => removePiano(piano._id);
+      new PianoRoll(rollID, svgRef.current, sequence);
     }, [rollID, sequence]);
 
     return (
@@ -30,7 +26,7 @@ export const PianoRollCard = memo(
       >
         <Wrapper className="piano-roll-card">
           <Text>This is a piano roll number {rollID}</Text>
-          <Svg ref={svgRef} />
+          <Svg height="150px" width="80%" ref={svgRef} />
         </Wrapper>
       </Link>
     );

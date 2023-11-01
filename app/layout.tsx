@@ -17,7 +17,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  console.log("Elegancko");
   return (
     <html lang="en">
       <PianoContextProvider>

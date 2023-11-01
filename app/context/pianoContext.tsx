@@ -1,40 +1,37 @@
 "use client";
 
-import PianoRoll from "@/data/pianoroll";
+import { PianoRollDisplay, PianoSequenceData } from "@/data/app";
 import { ReactNode, createContext, memo, useContext, useState } from "react";
 
 type PianoContextType = {
-  pianoRollsData: PianoRoll[];
-  addPiano: (pianoRoll: PianoRoll) => void;
-  getPianoRollByID: (id: number) => PianoRoll | undefined;
-  removePiano: (pianoRollID: PianoRoll["_id"]) => void;
+  pianoSequenceData: PianoSequenceData[];
+  getPianoSequences: () => Promise<void>;
+  getPianoSequenceByID: (
+    id: PianoSequenceData["id"]
+  ) => PianoSequenceData | undefined;
 };
 
 export const PianoContext = createContext<PianoContextType | null>(null);
 
 export const PianoContextProvider = memo<{ children: ReactNode }>(
   ({ children }) => {
-    const [pianoRollsData, setPianoData] = useState<PianoRoll[]>([]);
-    // const pianoRollFacotry = new PianoRollDisplay();
-    // setPianoRoolData(await pianoRollFacotry.getPartData());
+    const [pianoSequenceData, setPianoData] = useState<PianoSequenceData[]>([]);
 
-    const addPiano = (pianoRoll: PianoRoll) => {
-      setPianoData((prev) => [...prev, pianoRoll]);
+    const getPianoSequences = async () => {
+      const pianoRollFacotry = new PianoRollDisplay();
+      setPianoData(await pianoRollFacotry.getPianoSequences());
     };
 
-    const removePiano = (pianoRollID: PianoRoll["_id"]) =>
-      setPianoData((prev) => prev.filter((p) => p._id !== pianoRollID));
-
-    const getPianoRollByID = (pianoRollID: number) => {
-      return pianoRollsData?.find((piano) => piano._id === pianoRollID);
+    const getPianoSequenceByID = (id: PianoSequenceData["id"]) => {
+      return pianoSequenceData.find((piano) => piano.id === id);
     };
+
     return (
       <PianoContext.Provider
         value={{
-          pianoRollsData,
-          getPianoRollByID,
-          addPiano,
-          removePiano,
+          pianoSequenceData,
+          getPianoSequences,
+          getPianoSequenceByID,
         }}
       >
         {children}

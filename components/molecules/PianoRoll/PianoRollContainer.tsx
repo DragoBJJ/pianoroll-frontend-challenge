@@ -1,33 +1,20 @@
 "use client";
 
 import { PianoRollsTemplate } from "@/components/templates/PianoRolls/PianoRollsTemplate";
-import { PianoRollDisplay } from "@/data/app";
-import { useState } from "react";
 import { PianoRollCard } from ".";
-import { Sequence } from "@/data/types";
 import { UsePianoContext } from "@/app/context/pianoContext";
+import { Button } from "@/components/atoms/Button";
 
 export const PianoRollContainer = () => {
-  const [pianoRoolData, setPianoRoolData] = useState<Sequence[]>();
-
-  const context = UsePianoContext();
-
-  const getPianoRollData = async () => {
-    const pianoRollFacotry = new PianoRollDisplay();
-    setPianoRoolData(await pianoRollFacotry.getPartData());
-  };
+  const { getPianoSequences, pianoSequenceData } = UsePianoContext();
 
   return (
     <>
-      <div id="buttonContainer" onClick={getPianoRollData}>
-        <button id="loadCSV">Load Piano Rolls!</button>
-      </div>
+      <Button handler={getPianoSequences} text="Load Piano rolls !" />
       <PianoRollsTemplate>
-        {pianoRoolData && pianoRoolData.length > 0 ? (
-          pianoRoolData.map((sequence, index) => {
-            return (
-              <PianoRollCard key={index} rollID={index} sequence={sequence} />
-            );
+        {pianoSequenceData.length ? (
+          pianoSequenceData.map(({ id, sequence }) => {
+            return <PianoRollCard key={id} rollID={id} sequence={sequence} />;
           })
         ) : (
           <></>

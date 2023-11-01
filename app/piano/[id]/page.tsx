@@ -1,23 +1,31 @@
 "use client";
 
 import { UsePianoContext } from "@/app/context/pianoContext";
-import { Wrapper, Text } from "@/components/molecules/PianoRoll/style";
-import { useEffect } from "react";
+import { PianoRollCard } from "@/components/molecules/PianoRoll";
+import { PianoSequenceData } from "@/data/app";
+import { useEffect, useState } from "react";
 
-const Page = async ({ params: { id } }: { params: { id: string } }) => {
-  const { pianoRollsData, getPianoRollByID } = UsePianoContext();
-
-  useEffect(() => {
-    const piano = getPianoRollByID(Number(id));
-    const pianoData = piano?.getPianoData();
-    const svg = pianoData?.svgElement;
-  }, []);
-  console.log("pianoRollsData", pianoRollsData);
-  return (
-    <Wrapper className="piano-roll-card">
-      <Text>This is a piano roll number {id}</Text>
-    </Wrapper>
-  );
+type PageType = {
+  params: { id: string };
+  searchParams: any;
 };
 
-export default Page;
+export default function Page({ params: { id } }: PageType) {
+  const [pianoSequence, setPianoSequence] = useState<PianoSequenceData>();
+
+  const { getPianoSequenceByID, pianoSequenceData } = UsePianoContext();
+
+  useEffect(() => {
+    const pianSequence = getPianoSequenceByID(Number(id));
+    setPianoSequence(pianSequence);
+  }, [getPianoSequenceByID, id]);
+
+  return pianoSequence ? (
+    <PianoRollCard
+      rollID={pianoSequence.id}
+      sequence={pianoSequence.sequence}
+    />
+  ) : (
+    <></>
+  );
+}
