@@ -1,35 +1,33 @@
 "use client";
 
-import { PianoRollDisplay, PianoSequenceData } from "@/data/app";
+import { PianoRollDisplay, PianoSequence } from "@/data/app";
 import { ReactNode, createContext, memo, useContext, useState } from "react";
 
 type PianoContextType = {
-  pianoSequenceData: PianoSequenceData[];
+  PianoSequence: PianoSequence[];
   getPianoSequences: () => Promise<void>;
-  getPianoSequenceByID: (
-    id: PianoSequenceData["id"]
-  ) => PianoSequenceData | undefined;
+  getPianoSequenceByID: (id: PianoSequence["id"]) => PianoSequence | undefined;
 };
 
 export const PianoContext = createContext<PianoContextType | null>(null);
 
 export const PianoContextProvider = memo<{ children: ReactNode }>(
   ({ children }) => {
-    const [pianoSequenceData, setPianoData] = useState<PianoSequenceData[]>([]);
+    const [PianoSequence, setPianoData] = useState<PianoSequence[]>([]);
 
     const getPianoSequences = async () => {
       const pianoRollFacotry = new PianoRollDisplay();
       setPianoData(await pianoRollFacotry.getPianoSequences());
     };
 
-    const getPianoSequenceByID = (id: PianoSequenceData["id"]) => {
-      return pianoSequenceData.find((piano) => piano.id === id);
+    const getPianoSequenceByID = (id: PianoSequence["id"]) => {
+      return PianoSequence.find((piano) => piano.id === id);
     };
 
     return (
       <PianoContext.Provider
         value={{
-          pianoSequenceData,
+          PianoSequence,
           getPianoSequences,
           getPianoSequenceByID,
         }}

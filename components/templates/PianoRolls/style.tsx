@@ -5,7 +5,6 @@ export const PianoRollsWrapper = styled.div`
   overflow: auto;
   scroll-behavior: auto;
   display: grid;
-  border: 1px solid red;
   height: 600px;
   width: 100%;
   padding: 2rem;

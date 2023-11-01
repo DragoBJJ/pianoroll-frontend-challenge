@@ -3,7 +3,7 @@
 import { StyledProvider } from "@/providers/StyledProviders";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import { PianoContextProvider } from "./context/pianoContext";
+import { PianoContextProvider } from "../context/pianoContext";
 
 const inter = Inter({ subsets: ["latin"] });
 

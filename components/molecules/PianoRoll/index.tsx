@@ -8,8 +8,15 @@ import { Text, Wrapper } from "./style";
 import Link from "next/link";
 import { Svg } from "@/components/atoms/Svg/Svg";
 
-export const PianoRollCard = memo(
-  ({ rollID, sequence }: { rollID: number; sequence: Sequence }) => {
+type PianoRollCardType = {
+  rollID: number;
+  sequence: Sequence;
+  isLarge?: boolean;
+  isSmall?: boolean;
+};
+
+export const PianoRollCard = memo<PianoRollCardType>(
+  ({ rollID, sequence, isLarge, isSmall }) => {
     const svgRef = useRef<SVGSVGElement>(null);
 
     useEffect(() => {
@@ -22,11 +29,12 @@ export const PianoRollCard = memo(
         href={`/piano/${rollID}`}
         style={{
           textDecoration: "none",
+          color: "#1d1d1d",
         }}
       >
-        <Wrapper className="piano-roll-card">
+        <Wrapper $large={isLarge} $small={isSmall}>
           <Text>This is a piano roll number {rollID}</Text>
-          <Svg height="150px" width="80%" ref={svgRef} />
+          <Svg height="80%" width="80%" ref={svgRef} />
         </Wrapper>
       </Link>
     );
