@@ -1,9 +1,6 @@
-"use client";
-
 import Image from "next/image";
 import styles from "./page.module.css";
 import { PianoRollContainer } from "@/components/molecules/PianoRoll/PianoRollContainer";
-import { UsePianoContext } from "./context/pianoContext";
 
 export default function Home() {
   return (

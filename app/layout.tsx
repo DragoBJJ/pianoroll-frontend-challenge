@@ -1,3 +1,5 @@
+"use client";
+
 import { StyledProvider } from "@/providers/StyledProviders";
 import "./globals.css";
 import { Inter } from "next/font/google";
@@ -15,13 +17,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  console.log("Elegancko");
   return (
     <html lang="en">
-      <StyledProvider>
-        <body className={inter.className}>
-          <PianoContextProvider>{children}</PianoContextProvider>
-        </body>
-      </StyledProvider>
+      <PianoContextProvider>
+        <StyledProvider>
+          <body className={inter.className}>{children}</body>
+        </StyledProvider>
+      </PianoContextProvider>
     </html>
   );
 }

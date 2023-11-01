@@ -11,12 +11,13 @@ export type PianoRollData = {
 
 export class PianoRollDisplay {
   private csvURL?: string;
-  private data: any;
+  private data: Sequence;
   private partData: Sequence[];
   private API_URL: string;
 
   constructor(csvURL?: string) {
     this.csvURL = csvURL;
+    this.data = [];
     this.partData = [];
     this.API_URL = "https://pianoroll.ai/random_notes";
   }
@@ -34,12 +35,12 @@ export class PianoRollDisplay {
   }
 
   async getPartData(): Promise<Sequence[]> {
-    if (!this.data) await this.loadPianoRollData();
+    if (!this.data.length) await this.loadPianoRollData();
     const CONST_SIZE = 60;
     for (let it = 0; it < 20; it++) {
       const start = it * CONST_SIZE;
       const end = start + CONST_SIZE;
-      const partData: Sequence = this.data.slice(start, end);
+      const partData = this.data.slice(start, end);
       this.partData.push(partData);
     }
     return this.partData;

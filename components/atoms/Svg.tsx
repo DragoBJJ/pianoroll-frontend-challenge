@@ -1,10 +1,15 @@
-import React from "react";
-import Svg from "./style";
+import { forwardRef } from "react";
 
-export const SvgIcon = ({
-  saveRef,
-}: {
-  saveRef: (ref: SVGSVGElement | null) => void;
-}) => {
-  return <Svg className="piano-roll-svg" ref={(ref) => saveRef(ref)}></Svg>;
-};
+export const Svg = forwardRef((props, ref: any) => {
+  return (
+    <svg
+      className="piano-roll-svg"
+      width="80%"
+      height="150px"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      ref={ref}
+    ></svg>
+  );
+});
