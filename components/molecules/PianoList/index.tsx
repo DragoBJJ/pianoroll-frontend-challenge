@@ -13,7 +13,7 @@ type PianoListType = {
 export const PianoList = memo<PianoListType>(({ pianoSequence }) => {
   return (
     <Wrapper>
-      {pianoSequence.length > 0 ? (
+      {pianoSequence.length ? (
         pianoSequence.map(({ id, sequence }) => {
           return (
             <PianoRollCard key={id} rollID={id} isSmall sequence={sequence} />

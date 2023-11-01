@@ -22,11 +22,11 @@ export const PianoContextProvider = memo<{ children: ReactNode }>(
     };
 
     const getPianoSequenceByID = (id: PianoSequence["id"]) => {
-      return PianoSequence.find((piano) => piano.id === id);
+      return PianoSequence.find((piano) => piano.id === Number(id));
     };
 
     const getNeighbouringSequences = (id: PianoSequence["id"]) => {
-      return PianoSequence.filter((piano) => piano.id !== id);
+      return PianoSequence.filter((piano) => piano.id !== Number(id));
     };
 
     return (

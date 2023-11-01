@@ -13,18 +13,15 @@ type PageType = {
 };
 
 export default function Page({ params: { id } }: PageType) {
-  const [pianoSequence, setPianoSequence] = useState<PianoSequence>();
-  const [pianoSequences, setPianoSequences] = useState<PianoSequence[]>();
-
-  const { getPianoSequenceByID, getNeighbouringSequences, PianoSequence } =
+  const { getPianoSequenceByID, getNeighbouringSequences, getPianoSequences } =
     UsePianoContext();
 
+  const pianoSequence = getPianoSequenceByID(Number(id));
+  const pianoSequences = getNeighbouringSequences(Number(id));
+
   useEffect(() => {
-    const pianSequence = getPianoSequenceByID(Number(id));
-    const sequences = getNeighbouringSequences(Number(id));
-    setPianoSequence(pianSequence);
-    setPianoSequences(sequences);
-  }, [getNeighbouringSequences, getPianoSequenceByID, id]);
+    if (!pianoSequence || !pianoSequences) getPianoSequences();
+  }, [getPianoSequences, id, pianoSequence, pianoSequences]);
 
   return pianoSequence && pianoSequences ? (
     <Wrapper>

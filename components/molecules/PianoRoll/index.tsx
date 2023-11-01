@@ -21,7 +21,9 @@ export const PianoRollCard = memo<PianoRollCardType>(
 
     useEffect(() => {
       if (!svgRef.current || !sequence.length) return;
-      new PianoRoll(rollID, svgRef.current, sequence);
+      const piano = new PianoRoll(rollID, svgRef.current, sequence);
+
+      console.log("Piano", piano);
     }, [rollID, sequence]);
 
     return (
