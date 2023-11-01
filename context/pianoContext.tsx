@@ -7,6 +7,7 @@ type PianoContextType = {
   PianoSequence: PianoSequence[];
   getPianoSequences: () => Promise<void>;
   getPianoSequenceByID: (id: PianoSequence["id"]) => PianoSequence | undefined;
+  getNeighbouringSequences: (id: number) => PianoSequence[];
 };
 
 export const PianoContext = createContext<PianoContextType | null>(null);
@@ -24,12 +25,17 @@ export const PianoContextProvider = memo<{ children: ReactNode }>(
       return PianoSequence.find((piano) => piano.id === id);
     };
 
+    const getNeighbouringSequences = (id: PianoSequence["id"]) => {
+      return PianoSequence.filter((piano) => piano.id !== id);
+    };
+
     return (
       <PianoContext.Provider
         value={{
           PianoSequence,
           getPianoSequences,
           getPianoSequenceByID,
+          getNeighbouringSequences,
         }}
       >
         {children}

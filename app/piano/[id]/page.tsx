@@ -2,10 +2,10 @@
 
 import { UsePianoContext } from "@/context/pianoContext";
 import { PianoRollCard } from "@/components/molecules/PianoRoll";
-import { PianoSequence } from "@/data/app";
 import { useEffect, useState } from "react";
 import { PianoList } from "@/components/molecules/PianoList";
 import { Wrapper } from "./style";
+import { PianoSequence } from "@/data/app";
 
 type PageType = {
   params: { id: string };
@@ -14,22 +14,26 @@ type PageType = {
 
 export default function Page({ params: { id } }: PageType) {
   const [pianoSequence, setPianoSequence] = useState<PianoSequence>();
+  const [pianoSequences, setPianoSequences] = useState<PianoSequence[]>();
 
-  const { getPianoSequenceByID, PianoSequence } = UsePianoContext();
+  const { getPianoSequenceByID, getNeighbouringSequences, PianoSequence } =
+    UsePianoContext();
 
   useEffect(() => {
     const pianSequence = getPianoSequenceByID(Number(id));
+    const sequences = getNeighbouringSequences(Number(id));
     setPianoSequence(pianSequence);
-  }, [getPianoSequenceByID, id]);
+    setPianoSequences(sequences);
+  }, [getNeighbouringSequences, getPianoSequenceByID, id]);
 
-  return pianoSequence ? (
+  return pianoSequence && pianoSequences ? (
     <Wrapper>
       <PianoRollCard
         rollID={pianoSequence.id}
         sequence={pianoSequence.sequence}
         isLarge
       />
-      <PianoList pianoSequence={PianoSequence} />
+      <PianoList pianoSequence={pianoSequences} />
     </Wrapper>
   ) : (
     <></>
