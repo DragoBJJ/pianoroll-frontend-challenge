@@ -1,11 +1,13 @@
 import { LegacyRef, forwardRef } from "react";
+import { SelectedArea } from "./style";
+import { SvgEventType } from "@/data/types";
 
 type SvgType = {
   height?: string;
   width?: string;
-  handleMouseDown: (e: React.MouseEvent<SVGSVGElement>) => void;
-  handleMouseMove: (e: React.MouseEvent<SVGSVGElement>) => void;
-  handleMouseUp: (e: React.MouseEvent<SVGSVGElement>) => void;
+  handleMouseDown: (e: SvgEventType) => void;
+  handleMouseMove: (e: SvgEventType) => void;
+  handleMouseUp: (e: SvgEventType) => void;
 };
 
 export const Svg = forwardRef(
@@ -15,6 +17,9 @@ export const Svg = forwardRef(
   ) => {
     return (
       <svg
+        style={{
+          position: "relative",
+        }}
         height={height}
         width={width}
         onMouseDown={handleMouseDown}
@@ -25,7 +30,7 @@ export const Svg = forwardRef(
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
         ref={ref}
-      />
+      ></svg>
     );
   }
 );

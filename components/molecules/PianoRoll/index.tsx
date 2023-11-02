@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import PianoRoll from "@/data/pianoroll";
-import { Sequence } from "@/data/types";
+import { Sequence, SvgEventType } from "@/data/types";
 import { memo, useEffect, useRef, useState } from "react";
 import { Text, Wrapper } from "./style";
 
@@ -14,13 +14,6 @@ type PianoRollCardType = {
   sequence: Sequence;
   isLarge?: boolean;
   isSmall?: boolean;
-};
-
-type SvgEventType = React.MouseEvent<SVGSVGElement>;
-
-type Pointstype = {
-  startPoint?: number;
-  endPoint?: number;
 };
 
 export const PianoRollCard = memo<PianoRollCardType>(
@@ -41,22 +34,23 @@ export const PianoRollCard = memo<PianoRollCardType>(
     const handleMouseDown = (e: SvgEventType) => {
       console.log("Start");
       setIsSelecting(true);
-      const startIndex = calculatingPercentData(e);
+
+      const { percent, index: startIndex } = calculatingPercentData(e);
       setStartPoint(startIndex);
-      if (selectedArea) {
+      if (selectedArea && startPoint) {
         selectedArea.style.width = "0%";
-        selectedArea.style.left = `${startIndex + 11.5}%`;
+        selectedArea.style.left = `${percent + 12}%`;
       }
-      console.log("Start index", startIndex);
+      console.log("Start index", percent);
     };
 
     const handleMouseUp = (e: SvgEventType) => {
       console.log("Stop");
       setIsSelecting(false);
-      const endIndex = calculatingPercentData(e);
+      const { percent, index: endIndex } = calculatingPercentData(e);
       setEndPoint(endIndex);
-      if (selectedArea) selectedArea.style.width = `${endIndex}%`;
-      const newSequence = sequence.slice(startPoint, endIndex);
+      if (selectedArea) selectedArea.style.width = `${percent}%`;
+      const newSequence = sequence.slice(startPoint, endPoint);
       console.log("newSequence", newSequence);
       console.log("endindex", endIndex);
     };
@@ -66,15 +60,21 @@ export const PianoRollCard = memo<PianoRollCardType>(
       const distance = e.pageX - left;
       const percent = Math.round((distance / width) * 100);
       SetPercent(percent);
+      console.log("percent", percent);
       const index = Math.round((percent / 100) * sequence.length);
       // console.log(`Clicked on element at index ${index}`);
-      return index;
+      return {
+        percent,
+        index,
+      };
     };
 
     const handleMouseMove = (e: SvgEventType) => {
       if (!isSelecting) return;
       calculatingPercentData(e);
-      if (selectedArea && percent) selectedArea.style.width = `${percent - 8}%`;
+      if (selectedArea && percent) {
+        selectedArea.style.width = `${percent}%`;
+      }
     };
 
     return (

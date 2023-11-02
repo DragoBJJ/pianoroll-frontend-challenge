@@ -11,3 +11,5 @@ export type Note = {
   velocity: number;
 };
 export type Sequence = Note[];
+
+export type SvgEventType = React.MouseEvent<SVGSVGElement>;
