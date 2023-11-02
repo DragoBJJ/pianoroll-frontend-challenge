@@ -2,7 +2,8 @@ import { devices } from "@/providers/mediaQuery";
 import styled from "styled-components";
 
 export const Wrapper = styled.div<{ $large?: boolean; $small?: boolean }>`
-  /* border: 1px solid #ccc; */
+  position: relative;
+  border: 1px solid #ccc;
   width: 100%;
   height: ${({ $large }) => ($large ? "600px" : "200px")};
   margin: ${({ $large }) => !$large && "0.5rem"};
