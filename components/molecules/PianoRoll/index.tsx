@@ -23,7 +23,7 @@ export const PianoRollCard = memo<PianoRollCardType>(
     const [isSelecting, setIsSelecting] = useState(false);
     const [startPoint, setStartPoint] = useState<number>();
     const [endPoint, setEndPoint] = useState<number>();
-    const [percent, SetPercent] = useState<number>();
+
     const selectedArea = document.getElementById("selected-area");
 
     useEffect(() => {
@@ -59,7 +59,6 @@ export const PianoRollCard = memo<PianoRollCardType>(
       const { left, width } = e.currentTarget.getBoundingClientRect();
       const distance = e.pageX - left;
       const percent = Math.round((distance / width) * 100);
-      SetPercent(percent);
       console.log("percent", percent);
       const index = Math.round((percent / 100) * sequence.length);
       // console.log(`Clicked on element at index ${index}`);
@@ -71,7 +70,7 @@ export const PianoRollCard = memo<PianoRollCardType>(
 
     const handleMouseMove = (e: SvgEventType) => {
       if (!isSelecting) return;
-      calculatingPercentData(e);
+      const { percent } = calculatingPercentData(e);
       if (selectedArea && percent) {
         selectedArea.style.width = `${percent}%`;
       }
