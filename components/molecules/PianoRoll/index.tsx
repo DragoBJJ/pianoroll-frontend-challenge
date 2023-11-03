@@ -85,7 +85,7 @@ export const PianoRollCard = memo<PianoRollCardType>(
           color: "#1d1d1d",
         }}
       >
-        <Wrapper $large={isLarge} $small={isSmall}>
+        <Wrapper $large={isLarge}>
           <Text>This is a piano roll number {rollID}</Text>
           <SelectedArea id="selected-area" />
           <Svg

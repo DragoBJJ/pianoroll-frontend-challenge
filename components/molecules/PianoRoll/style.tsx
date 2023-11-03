@@ -1,7 +1,7 @@
 import { devices } from "@/providers/mediaQuery";
 import styled from "styled-components";
 
-export const Wrapper = styled.div<{ $large?: boolean; $small?: boolean }>`
+export const Wrapper = styled.div<{ $large?: boolean }>`
   position: relative;
   border: 1px solid #ccc;
   width: 100%;
@@ -18,8 +18,7 @@ export const Wrapper = styled.div<{ $large?: boolean; $small?: boolean }>`
   }
 
   @media only screen and (${devices.lg}) {
-    width: ${({ $large, $small }) =>
-      $large ? "70vw" : $small ? "auto" : "100%"};
+    width: ${({ $large }) => ($large ? "70vw" : "100%")};
     height: ${({ $large }) => ($large ? "600px" : "200px")};
   }
 `;
