@@ -54,6 +54,7 @@ export const UseSelectingSequence = (
     const distancePercent = calculatingDistance(e);
     const SPACE_TO_DROP = 1;
     selectedLine.style.left = `${distancePercent - SPACE_TO_DROP}%`;
+    console.log("distancePercent", selectedLine.style.left);
     if (!isSelecting) return;
 
     calculatingSequenceIndex(distancePercent, sequence.length);

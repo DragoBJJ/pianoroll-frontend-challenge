@@ -13,21 +13,21 @@ type PageType = {
 };
 
 export default function Page({ params: { id } }: PageType) {
-  const { getPianoSequenceByID, getNeighbouringSequences, getPianoSequences } =
+  const { getPianoSequenceByID, getNeighbourSequences, getPianoSequences } =
     UsePianoContext();
 
   const pianoSequence = getPianoSequenceByID(Number(id));
-  const pianoSequences = getNeighbouringSequences(Number(id));
+  const neighbourSequences = getNeighbourSequences(Number(id));
 
   const { selectingSequenceComponents } = UseSelectingSequence(
     pianoSequence && pianoSequence.sequence
   );
 
   useEffect(() => {
-    if (!pianoSequence || !pianoSequences) getPianoSequences();
-  }, [getPianoSequences, id, pianoSequence, pianoSequences]);
+    if (!pianoSequence || !neighbourSequences) getPianoSequences();
+  }, [getPianoSequences, id, pianoSequence, neighbourSequences]);
 
-  return pianoSequence && pianoSequences ? (
+  return pianoSequence && neighbourSequences ? (
     <Wrapper>
       <PianoRollCard
         rollID={pianoSequence.id}
@@ -35,7 +35,7 @@ export default function Page({ params: { id } }: PageType) {
         selectingSequenceComponents={selectingSequenceComponents}
         isDetailPage
       />
-      <PianoList pianoSequences={pianoSequences} />
+      <PianoList pianoSequences={neighbourSequences} />
     </Wrapper>
   ) : (
     <></>
