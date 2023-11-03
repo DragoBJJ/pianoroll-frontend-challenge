@@ -3,8 +3,8 @@
 import { memo } from "react";
 import { Wrapper } from "./style";
 import { PianoRollCard } from "../PianoRoll";
-
-import { PianoSequence } from "@/data/app";
+import { PianoSequence } from "@/data/types";
+import { NavLink } from "@/components/atoms/Link";
 
 type PianoListType = {
   pianoSequence: PianoSequence[];
@@ -15,7 +15,11 @@ export const PianoList = memo<PianoListType>(({ pianoSequence }) => {
     <Wrapper>
       {pianoSequence.length ? (
         pianoSequence.map(({ id, sequence }) => {
-          return <PianoRollCard key={id} rollID={id} sequence={sequence} />;
+          return (
+            <NavLink key={id} href={`/piano/${id}`}>
+              <PianoRollCard rollID={id} sequence={sequence} />;
+            </NavLink>
+          );
         })
       ) : (
         <></>

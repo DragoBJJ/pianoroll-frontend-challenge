@@ -2,10 +2,9 @@
 
 import { UsePianoContext } from "@/context/pianoContext";
 import { PianoRollCard } from "@/components/molecules/PianoRoll";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { PianoList } from "@/components/molecules/PianoList";
 import { Wrapper } from "./style";
-import { PianoSequence } from "@/data/app";
 
 type PageType = {
   params: { id: string };

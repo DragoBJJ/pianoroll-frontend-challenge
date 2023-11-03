@@ -4,6 +4,7 @@ import { PianoRollsTemplate } from "@/components/templates/PianoRolls/PianoRolls
 import { PianoRollCard } from ".";
 import { UsePianoContext } from "@/context/pianoContext";
 import { Button } from "@/components/atoms/Button";
+import { NavLink } from "@/components/atoms/Link";
 
 export const PianoRollContainer = () => {
   const { getPianoSequences, PianoSequence } = UsePianoContext();
@@ -14,7 +15,11 @@ export const PianoRollContainer = () => {
       <PianoRollsTemplate>
         {PianoSequence.length ? (
           PianoSequence.map(({ id, sequence }) => {
-            return <PianoRollCard key={id} rollID={id} sequence={sequence} />;
+            return (
+              <NavLink key={id} href={`/piano/${id}`}>
+                <PianoRollCard rollID={id} sequence={sequence} />;
+              </NavLink>
+            );
           })
         ) : (
           <></>

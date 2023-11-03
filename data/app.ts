@@ -1,18 +1,4 @@
-import { Sequence } from "./types";
-
-export type PianoRollData = {
-  backgroundColormap: string[];
-  end: number;
-  noteColormap: string[];
-  note_height: number | null;
-  start: number;
-  svgElement: SVGElement;
-};
-
-export type PianoSequence = {
-  id: number;
-  sequence: Sequence;
-};
+import { PianoSequence, Sequence } from "./types";
 
 export class PianoRollDisplay {
   private csvURL?: string;

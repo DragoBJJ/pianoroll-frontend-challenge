@@ -5,9 +5,12 @@ import { Sequence, SvgEventType } from "@/data/types";
 import { memo, useEffect, useRef, useState } from "react";
 import { Text, Wrapper, SvgWrapper } from "./style";
 
-import Link from "next/link";
 import { Svg } from "@/components/atoms/Svg/Svg";
 import { SelectedArea } from "@/components/atoms/Svg/style";
+import {
+  calculatingDistance,
+  calculatingSequenceIndex,
+} from "@/app/utils/calculatingFunction";
 
 type PianoRollCardType = {
   rollID: number;
@@ -30,13 +33,11 @@ export const PianoRollCard = memo<PianoRollCardType>(
       new PianoRoll(rollID, svgRef.current, sequence);
     }, [rollID, sequence]);
 
-    useEffect(() => {}, []);
-
     const handleMouseDown = (e: SvgEventType) => {
+      if (!isLarge) return;
       setIsSelecting(true);
-
       const percent = calculatingDistance(e);
-      const startIndex = calculatingSequenceIndex(percent);
+      const startIndex = calculatingSequenceIndex(percent, sequence.length);
 
       setStartPoint(percent);
       setStartIndex(startIndex);
@@ -50,7 +51,7 @@ export const PianoRollCard = memo<PianoRollCardType>(
     const handleMouseUp = (e: SvgEventType) => {
       setIsSelecting(false);
       const percet = calculatingDistance(e);
-      const endIndex = calculatingSequenceIndex(percet);
+      const endIndex = calculatingSequenceIndex(percet, sequence.length);
       const newSequence = sequence.slice(startIndex, endIndex);
 
       console.log("StartIndex", startIndex);
@@ -58,23 +59,10 @@ export const PianoRollCard = memo<PianoRollCardType>(
       console.log("newSequence", newSequence);
     };
 
-    const calculatingDistance = (e: SvgEventType) => {
-      const { left, width } = e.currentTarget.getBoundingClientRect();
-      const distance = e.pageX - left;
-      const percent = Math.round((distance / width) * 100);
-      return percent;
-    };
-
-    const calculatingSequenceIndex = (percent: number) => {
-      const index = Math.round((percent / 100) * sequence.length);
-      console.log(`Clicked on element at index ${index}`);
-      return index;
-    };
-
     const handleMouseMove = (e: SvgEventType) => {
-      if (!isSelecting) return;
+      if (!isSelecting || !isLarge) return;
       const percent = calculatingDistance(e);
-      calculatingSequenceIndex(percent);
+      calculatingSequenceIndex(percent, sequence.length);
       if (selectedArea && startPoint) {
         const move = percent - startPoint;
         selectedArea.style.width = `${move}%`;
@@ -82,29 +70,20 @@ export const PianoRollCard = memo<PianoRollCardType>(
     };
 
     return (
-      <Link
-        draggable={false}
-        href={`/piano/${rollID}`}
-        style={{
-          textDecoration: "none",
-          color: "#1d1d1d",
-        }}
-      >
-        <Wrapper $large={isLarge}>
-          <Text>This is a piano roll number {rollID}</Text>
-          <SvgWrapper>
-            <SelectedArea id="selected-area" />
-            <Svg
-              handleMouseDown={handleMouseDown}
-              handleMouseMove={handleMouseMove}
-              handleMouseUp={handleMouseUp}
-              height="100%"
-              width="100%"
-              ref={svgRef}
-            />
-          </SvgWrapper>
-        </Wrapper>
-      </Link>
+      <Wrapper $large={isLarge}>
+        <Text>This is a piano roll number {rollID}</Text>
+        <SvgWrapper>
+          <SelectedArea id="selected-area" />
+          <Svg
+            handleMouseDown={handleMouseDown}
+            handleMouseMove={handleMouseMove}
+            handleMouseUp={handleMouseUp}
+            height="100%"
+            width="100%"
+            ref={svgRef}
+          />
+        </SvgWrapper>
+      </Wrapper>
     );
   }
 );
