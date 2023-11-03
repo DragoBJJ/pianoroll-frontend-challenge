@@ -5,11 +5,6 @@ import { PianoRollContainer } from "@/components/molecules/PianoRoll/PianoRollCo
 export default function Home() {
   return (
     <main className={styles.main}>
-      <nav className="navbar">
-        <div className="logo-container">
-          <Image src="assets/white.svg" width={100} height={100} alt="Logo" />
-        </div>
-      </nav>
       <h1>Welcome to PianoRoll frontend coding challenge!</h1>
       <PianoRollContainer />
     </main>
