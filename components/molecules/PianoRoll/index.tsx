@@ -67,13 +67,14 @@ export const PianoRollCard = memo<PianoRollCardType>(
     const handleMouseMove = (e: SvgEventType) => {
       if (!selectedLine) return;
       const distancePercent = calculatingDistance(e);
-      selectedLine.style.left = `${distancePercent}%`;
+      const SPACE_TO_DROP = 1;
+      selectedLine.style.left = `${distancePercent - SPACE_TO_DROP}%`;
       if (!isSelecting || !isDetailPage) return;
 
       calculatingSequenceIndex(distancePercent, sequence.length);
       if (selectedArea && startPoint) {
         const move = distancePercent - startPoint;
-        selectedArea.style.width = `${move}%`;
+        selectedArea.style.width = `${move - SPACE_TO_DROP}%`;
       }
     };
 
