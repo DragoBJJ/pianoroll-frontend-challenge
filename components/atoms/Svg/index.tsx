@@ -1,6 +1,6 @@
 import { LegacyRef, forwardRef } from "react";
-import { SelectedArea } from "./style";
 import { SvgEventType } from "@/data/types";
+import { SvgContainer } from "./style";
 
 type SvgType = {
   height?: string;
@@ -16,7 +16,7 @@ export const Svg = forwardRef(
     ref: LegacyRef<SVGSVGElement>
   ) => {
     return (
-      <svg
+      <SvgContainer
         height={height}
         width={width}
         onMouseDown={handleMouseDown}
@@ -27,7 +27,7 @@ export const Svg = forwardRef(
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
         ref={ref}
-      ></svg>
+      />
     );
   }
 );

@@ -27,7 +27,7 @@ export default function Page({ params: { id } }: PageType) {
       <PianoRollCard
         rollID={pianoSequence.id}
         sequence={pianoSequence.sequence}
-        isLarge
+        isDetailPage
       />
       <PianoList pianoSequence={pianoSequences} />
     </Wrapper>

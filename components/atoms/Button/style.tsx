@@ -5,11 +5,17 @@ export const Wrapper = styled.div`
 `;
 
 export const Button = styled.button`
-  /* ... existing button styles ... */
-  border-bottom: 3px solid #381815; /* A darker shade for 3D effect */
-  position: relative; /* Required for the top movement on hover */
-  transition: all 1.1s ease; /* Transition for all properties */
-
+  border-bottom: 3px solid ${({ theme }) => theme.palette.primary.main};
+  position: relative;
+  transition: all 1.1s ease;
+  padding: 15px 25px;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  color: ${({ theme }) => theme.palette.common.white};
+  transition: ease-in-out 0.3s all;
+  border-radius: 5px;
+  background-color: ${({ theme }) => theme.palette.primary.main};
   &:hover {
     transform: scale(1.05);
   }

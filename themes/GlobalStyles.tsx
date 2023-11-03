@@ -18,7 +18,7 @@ export const defaultTheme: DefaultTheme = {
       contrastText: "#ffffff",
     },
     secondary: {
-      main: "#d946ef",
+      main: "#A51C30",
       contrastText: "#ffffff",
     },
   },
@@ -41,7 +41,7 @@ export const darkTheme: DefaultTheme = {
       contrastText: "#ffffff",
     },
     secondary: {
-      main: "#d946ef",
+      main: "#eee7e1",
       contrastText: "#ffffff",
     },
   },
