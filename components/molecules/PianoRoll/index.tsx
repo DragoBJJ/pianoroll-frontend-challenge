@@ -13,11 +13,10 @@ type PianoRollCardType = {
   rollID: number;
   sequence: Sequence;
   isLarge?: boolean;
-  isSmall?: boolean;
 };
 
 export const PianoRollCard = memo<PianoRollCardType>(
-  ({ rollID, sequence, isLarge, isSmall }) => {
+  ({ rollID, sequence, isLarge }) => {
     const svgRef = useRef<SVGSVGElement>(null);
 
     const [isSelecting, setIsSelecting] = useState(false);

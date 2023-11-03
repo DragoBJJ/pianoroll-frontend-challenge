@@ -7,7 +7,6 @@ export const PianoRollsWrapper = styled.div`
   display: grid;
   height: 600px;
   width: 100%;
-  padding: 2rem;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
 
