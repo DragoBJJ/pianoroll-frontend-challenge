@@ -53,9 +53,8 @@ export const PianoRollCard = memo<PianoRollCardType>(
       const { percent, index } = calculatingPercentData(e);
       setEndPoint(percent);
       setEndIndex(index);
-      const newSequence = sequence.slice(startPoint, endPoint);
+      const newSequence = sequence.slice(startIndex, endIndex);
       console.log("newSequence", newSequence);
-      console.log("endindex", endIndex);
     };
 
     const calculatingPercentData = (e: SvgEventType) => {
