@@ -22,6 +22,8 @@ export const PianoRollCard = memo<PianoRollCardType>(
     const [isSelecting, setIsSelecting] = useState(false);
     const [startPoint, setStartPoint] = useState<number>();
     const [endPoint, setEndPoint] = useState<number>();
+    const [startIndex, setStartIndex] = useState<number>();
+    const [endIndex, setEndIndex] = useState<number>();
 
     const selectedArea = document.getElementById("selected-area");
 
@@ -34,21 +36,23 @@ export const PianoRollCard = memo<PianoRollCardType>(
       console.log("Start");
       setIsSelecting(true);
 
-      const { percent, index: startIndex } = calculatingPercentData(e);
-      setStartPoint(startIndex);
-      if (selectedArea && startPoint) {
-        selectedArea.style.width = "0%";
-        selectedArea.style.left = `${percent + 12}%`;
+      const { percent, index } = calculatingPercentData(e);
+      setStartPoint(percent);
+      setStartIndex(index);
+      if (selectedArea) {
+        selectedArea.style.width = `0%`;
+        selectedArea.style.left = `${percent}%`;
       }
-      console.log("Start index", percent);
+
+      console.log("startPoint", percent);
     };
 
     const handleMouseUp = (e: SvgEventType) => {
       console.log("Stop");
       setIsSelecting(false);
-      const { percent, index: endIndex } = calculatingPercentData(e);
-      setEndPoint(endIndex);
-      if (selectedArea) selectedArea.style.width = `${percent}%`;
+      const { percent, index } = calculatingPercentData(e);
+      setEndPoint(percent);
+      setEndIndex(index);
       const newSequence = sequence.slice(startPoint, endPoint);
       console.log("newSequence", newSequence);
       console.log("endindex", endIndex);
@@ -58,7 +62,6 @@ export const PianoRollCard = memo<PianoRollCardType>(
       const { left, width } = e.currentTarget.getBoundingClientRect();
       const distance = e.pageX - left;
       const percent = Math.round((distance / width) * 100);
-      console.log("percent", percent);
       const index = Math.round((percent / 100) * sequence.length);
       // console.log(`Clicked on element at index ${index}`);
       return {
@@ -69,9 +72,15 @@ export const PianoRollCard = memo<PianoRollCardType>(
 
     const handleMouseMove = (e: SvgEventType) => {
       if (!isSelecting) return;
+
       const { percent } = calculatingPercentData(e);
-      if (selectedArea && percent) {
-        selectedArea.style.width = `${percent}%`;
+      if (selectedArea && startPoint) {
+        const move = percent - startPoint;
+        selectedArea.style.width = `${move}%`;
+
+        console.log("startPoint", startPoint);
+        console.log("percent", percent);
+        console.log("move", move);
       }
     };
 
