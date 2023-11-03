@@ -2,12 +2,10 @@ import {
   calculatingDistance,
   calculatingSequenceIndex,
 } from "@/app/utils/calculatingFunction";
-import { SelectingComponentType, Sequence, SvgEventType } from "@/data/types";
-import { useState } from "react";
+import { Sequence, SvgEventType } from "@/data/types";
+import { memo, useState } from "react";
 
-export const UseSelectingSequence = (
-  sequence?: Sequence | undefined
-): SelectingComponentType => {
+export const UseInteractiveSelection = (sequence: Sequence) => {
   const [isSelecting, setIsSelecting] = useState(false);
   const [startPoint, setStartPoint] = useState<number>();
   const [startIndex, setStartIndex] = useState<number>();
@@ -65,7 +63,7 @@ export const UseSelectingSequence = (
   };
 
   return {
-    selectingSequenceComponents: {
+    selectionComponent: {
       handleMouseDown,
       handleMouseMove,
       handleMouseUp,

@@ -1,11 +1,11 @@
 import { LegacyRef, forwardRef } from "react";
-import { SelectingComponentType } from "@/data/types";
+import { SelectionComponent } from "@/data/types";
 import { SvgContainer } from "./style";
 
 type SvgType = {
   height?: string;
   width?: string;
-  selectingSequenceComponents?: SelectingComponentType["selectingSequenceComponents"];
+  selectingSequenceComponents?: SelectionComponent["selectionComponent"];
 };
 export const Svg = forwardRef(
   (

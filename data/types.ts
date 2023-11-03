@@ -28,8 +28,8 @@ export type PianoSequence = {
   sequence: Sequence;
 };
 
-export type SelectingComponentType = {
-  selectingSequenceComponents: {
+export type SelectionComponent = {
+  selectionComponent: {
     handleMouseDown: (e: SvgEventType) => void;
     handleMouseMove: (e: SvgEventType) => void;
     handleMouseUp: (e: SvgEventType) => void;

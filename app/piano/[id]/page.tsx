@@ -5,7 +5,7 @@ import { PianoRollCard } from "@/components/molecules/PianoRoll";
 import { useEffect } from "react";
 import { PianoList } from "@/components/molecules/PianoList";
 import { Wrapper } from "./style";
-import { UseSelectingSequence } from "@/hook/useSelectingSequence";
+import { UseInteractiveSelection } from "@/hook/useInteractiveSelection";
 
 type PageType = {
   params: { id: string };
@@ -19,10 +19,6 @@ export default function Page({ params: { id } }: PageType) {
   const pianoSequence = getPianoSequenceByID(Number(id));
   const neighbourSequences = getNeighbourSequences(Number(id));
 
-  const { selectingSequenceComponents } = UseSelectingSequence(
-    pianoSequence && pianoSequence.sequence
-  );
-
   useEffect(() => {
     if (!pianoSequence || !neighbourSequences) getPianoSequences();
   }, [getPianoSequences, id, pianoSequence, neighbourSequences]);
@@ -32,7 +28,6 @@ export default function Page({ params: { id } }: PageType) {
       <PianoRollCard
         rollID={pianoSequence.id}
         sequence={pianoSequence.sequence}
-        selectingSequenceComponents={selectingSequenceComponents}
         isDetailPage
       />
       <PianoList pianoSequences={neighbourSequences} />
