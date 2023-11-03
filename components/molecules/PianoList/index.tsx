@@ -7,14 +7,14 @@ import { PianoSequence } from "@/data/types";
 import { NavLink } from "@/components/atoms/Link";
 
 type PianoListType = {
-  pianoSequence: PianoSequence[];
+  pianoSequences: PianoSequence[];
 };
 
-export const PianoList = memo<PianoListType>(({ pianoSequence }) => {
+export const PianoList = memo<PianoListType>(({ pianoSequences }) => {
   return (
     <Wrapper>
-      {pianoSequence.length ? (
-        pianoSequence.map(({ id, sequence }) => {
+      {pianoSequences.length ? (
+        pianoSequences.map(({ id, sequence }) => {
           return (
             <NavLink key={id} href={`/piano/${id}`}>
               <PianoRollCard rollID={id} sequence={sequence} />;

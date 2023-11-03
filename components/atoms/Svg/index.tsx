@@ -1,20 +1,20 @@
 import { LegacyRef, forwardRef } from "react";
-import { SvgEventType } from "@/data/types";
+import { SelectingComponentType } from "@/data/types";
 import { SvgContainer } from "./style";
 
 type SvgType = {
   height?: string;
   width?: string;
-  handleMouseDown: (e: SvgEventType) => void;
-  handleMouseMove: (e: SvgEventType) => void;
-  handleMouseUp: (e: SvgEventType) => void;
+  selectingSequenceComponents?: SelectingComponentType["selectingSequenceComponents"];
 };
-
 export const Svg = forwardRef(
   (
-    { handleMouseDown, handleMouseMove, handleMouseUp, height, width }: SvgType,
+    { selectingSequenceComponents, height, width }: SvgType,
     ref: LegacyRef<SVGSVGElement>
   ) => {
+    const { handleMouseDown, handleMouseMove, handleMouseUp } =
+      selectingSequenceComponents || {};
+
     return (
       <SvgContainer
         height={height}

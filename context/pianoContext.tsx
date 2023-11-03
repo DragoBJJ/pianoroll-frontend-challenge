@@ -1,6 +1,7 @@
 "use client";
 
-import { PianoRollDisplay, PianoSequence } from "@/data/app";
+import { PianoRollDisplay } from "@/data/app";
+import { PianoSequence } from "@/data/types";
 import { ReactNode, createContext, memo, useContext, useState } from "react";
 
 type PianoContextType = {
