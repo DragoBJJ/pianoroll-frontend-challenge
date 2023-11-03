@@ -1,8 +1,14 @@
-import { ReactNode } from "react";
+import { ReactNode, memo } from "react";
 import { PianoRollsWrapper } from "./style";
 
-export const PianoRollsTemplate = ({ children }: { children: ReactNode }) => {
-  return (
-    <PianoRollsWrapper id="pianoRollContainer">{children}</PianoRollsWrapper>
-  );
+type PianoRollsTemplateType = {
+  children: ReactNode;
 };
+
+export const PianoRollsTemplate = memo<PianoRollsTemplateType>(
+  ({ children }) => {
+    return (
+      <PianoRollsWrapper id="pianoRollContainer">{children}</PianoRollsWrapper>
+    );
+  }
+);
