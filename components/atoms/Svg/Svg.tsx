@@ -17,9 +17,6 @@ export const Svg = forwardRef(
   ) => {
     return (
       <svg
-        style={{
-          position: "relative",
-        }}
         height={height}
         width={width}
         onMouseDown={handleMouseDown}

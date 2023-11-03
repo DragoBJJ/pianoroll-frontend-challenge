@@ -3,7 +3,7 @@
 import PianoRoll from "@/data/pianoroll";
 import { Sequence, SvgEventType } from "@/data/types";
 import { memo, useEffect, useRef, useState } from "react";
-import { Text, Wrapper } from "./style";
+import { Text, Wrapper, SvgWrapper } from "./style";
 
 import Link from "next/link";
 import { Svg } from "@/components/atoms/Svg/Svg";
@@ -31,6 +31,8 @@ export const PianoRollCard = memo<PianoRollCardType>(
       if (!svgRef.current || !sequence.length) return;
       const piano = new PianoRoll(rollID, svgRef.current, sequence);
     }, [rollID, sequence]);
+
+    useEffect(() => {}, []);
 
     const handleMouseDown = (e: SvgEventType) => {
       console.log("Start");
@@ -62,7 +64,7 @@ export const PianoRollCard = memo<PianoRollCardType>(
       const distance = e.pageX - left;
       const percent = Math.round((distance / width) * 100);
       const index = Math.round((percent / 100) * sequence.length);
-      // console.log(`Clicked on element at index ${index}`);
+      console.log(`Clicked on element at index ${index}`);
       return {
         percent,
         index,
@@ -94,15 +96,17 @@ export const PianoRollCard = memo<PianoRollCardType>(
       >
         <Wrapper $large={isLarge}>
           <Text>This is a piano roll number {rollID}</Text>
-          <SelectedArea id="selected-area" />
-          <Svg
-            handleMouseDown={handleMouseDown}
-            handleMouseMove={handleMouseMove}
-            handleMouseUp={handleMouseUp}
-            height="80%"
-            width="80%"
-            ref={svgRef}
-          />
+          <SvgWrapper>
+            <SelectedArea id="selected-area" />
+            <Svg
+              handleMouseDown={handleMouseDown}
+              handleMouseMove={handleMouseMove}
+              handleMouseUp={handleMouseUp}
+              height="100%"
+              width="100%"
+              ref={svgRef}
+            />
+          </SvgWrapper>
         </Wrapper>
       </Link>
     );

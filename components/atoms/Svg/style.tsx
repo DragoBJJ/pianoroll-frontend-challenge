@@ -1,12 +1,10 @@
 import styled from "styled-components";
 
-export const SelectedArea = styled.svg`
-  display: flex;
+export const SelectedArea = styled.div`
   position: absolute;
-  left: 10.5%;
+  left: 0;
   background-color: #931010;
   opacity: 0.5;
-  /* width: 100%; */
-  max-width: 80%;
-  height: 76%;
+  width: 0;
+  height: 100%;
 `;

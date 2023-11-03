@@ -28,3 +28,11 @@ export const Text = styled.div`
   text-align: center;
   font-size: 1.1rem;
 `;
+
+export const SvgWrapper = styled.div`
+  position: relative;
+  z-index: 0;
+  height: 80%;
+  width: 80%;
+  margin: auto;
+`;
