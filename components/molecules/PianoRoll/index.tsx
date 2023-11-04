@@ -1,6 +1,6 @@
 import { Sequence } from "@/data/types";
 import { memo, useRef } from "react";
-import { Text, Wrapper, SvgWrapper } from "./style";
+import { Text, Wrapper } from "./style";
 import { Svg } from "@/components/atoms/Svg";
 import { PianoRollDetailCard } from "./PianoRollDetailCard";
 import { UseInitializeSequence } from "@/hook/useInitializeSequence";

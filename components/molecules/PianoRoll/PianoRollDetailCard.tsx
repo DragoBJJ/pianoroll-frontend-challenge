@@ -16,7 +16,6 @@ export const PianoRollDetailCard = memo<DetailCardType>(
     const { selectionComponents, newSequence } =
       UseInteractiveSelection(sequence);
 
-    console.log("newSequence", newSequence);
     return (
       <>
         <SvgWrapper>
@@ -29,7 +28,7 @@ export const PianoRollDetailCard = memo<DetailCardType>(
             ref={svgRef}
           />
         </SvgWrapper>
-        {newSequence && (
+        {newSequence && newSequence?.length > 0 && (
           <PianoRollCard
             rollID={rollID}
             sequence={newSequence}
