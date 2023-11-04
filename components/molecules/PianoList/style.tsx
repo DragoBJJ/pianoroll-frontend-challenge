@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   height: 600px;
   margin-left: 1rem;
   margin: auto;
-  border-left: 1px solid #1d1d1d;
+  border-left: 2px solid ${({ theme }) => theme.palette.common.red};
 
   @media only screen and (${devices.lg}) {
     margin: 0 0 0 1rem;

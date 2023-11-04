@@ -29,16 +29,17 @@ export const getSelectingSequence = (
 
 export const moveSelectingLine = (
   e: SvgEventType,
-  selectedLine: HTMLElement,
+  selectedLine: HTMLElement | null,
   distancePercent: number
 ) => {
+  if (!selectedLine) return;
   const SPACE_TO_DROP = 1;
   selectedLine.style.left = `${distancePercent - SPACE_TO_DROP}%`;
   console.log("distancePercent", selectedLine.style.left);
 };
 
 export const initializeSelectedArea = (
-  selectedArea: HTMLElement,
+  selectedArea: HTMLElement | null,
   distancePercent: number
 ) => {
   if (selectedArea) {
@@ -48,13 +49,14 @@ export const initializeSelectedArea = (
 };
 
 export const setSelectedArea = (
-  selectedArea: HTMLElement,
+  selectedArea: HTMLElement | null,
   distancePercent: number,
   startPoint: number
 ) => {
   const SPACE_TO_DROP = 1;
-  if (selectedArea && startPoint) {
-    const move = distancePercent - startPoint;
+  const move = distancePercent - startPoint;
+  if (selectedArea) {
     selectedArea.style.width = `${move - SPACE_TO_DROP}%`;
   }
+  return selectedArea;
 };

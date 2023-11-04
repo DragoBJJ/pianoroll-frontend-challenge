@@ -11,11 +11,12 @@ import { useState } from "react";
 
 export const UseInteractiveSelection = (sequence: Sequence) => {
   const [isSelecting, setIsSelecting] = useState(false);
-  const [startPoint, setStartPoint] = useState<number>();
+  const [startPoint, setStartPoint] = useState<number | null>(null);
   const [startIndex, setStartIndex] = useState<number>();
 
-  const selectedArea = document.getElementById("selected-area");
-  const selectedLine = document.getElementById("selected-line");
+  let selectedArea: HTMLElement | null =
+    document.getElementById("selected-area");
+  let selectedLine: HTMLElement | null;
 
   const [newSequence, setNewSequence] = useState<Sequence | undefined>(
     sequence
@@ -35,8 +36,8 @@ export const UseInteractiveSelection = (sequence: Sequence) => {
   };
 
   const handleMouseUp = (e: SvgEventType) => {
-    if (!sequence || !startIndex) return;
     setIsSelecting(false);
+    if (!sequence || !startIndex) return;
     const newSequence = getSelectingSequence(e, sequence, startIndex);
     setNewSequence(newSequence);
     console.log("Your New Sequnce Is: ", newSequence);
@@ -44,11 +45,10 @@ export const UseInteractiveSelection = (sequence: Sequence) => {
 
   const handleMouseMove = (e: SvgEventType) => {
     const distancePercent = calculatingDistance(e);
-    if (!selectedLine || !sequence) return;
+    if (!selectedLine) selectedLine = document.getElementById("selected-line");
     moveSelectingLine(e, selectedLine, distancePercent);
-    if (!isSelecting) return;
+    if (!isSelecting || !startPoint) return;
     calculatingSequenceIndex(distancePercent, sequence.length);
-    if (!selectedArea || !startPoint) return;
     setSelectedArea(selectedArea, distancePercent, startPoint);
   };
 

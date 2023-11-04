@@ -31,7 +31,7 @@ export const Text = styled.div`
   margin: 10px;
   text-align: center;
   font-size: 1.1rem;
-  color: ${({ theme }) => theme.palette.primary.main};
+  color: ${({ theme }) => theme.palette.common.black};
 `;
 
 export const SvgWrapper = styled.div`
@@ -45,11 +45,12 @@ export const SvgWrapper = styled.div`
 export const SelectedArea = styled.div`
   position: absolute;
   left: 0;
-  background-color: ${({ theme }) => theme.palette.primary.main};
-  opacity: 0.6;
+  background: ${({ theme }) => theme.palette.common.red};
+  box-shadow: 0 4px 30px ${({ theme }) => theme.palette.common.red};
+  backdrop-filter: blur(3.9px);
+  -webkit-backdrop-filter: blur(3.9px);
   width: 0;
   height: 100%;
-  z-index: 999;
 `;
 
 export const SelectedLine = styled.div`
@@ -58,8 +59,8 @@ export const SelectedLine = styled.div`
   top: 0;
   bottom: 0;
   left: 0;
-  background-color: ${({ theme }) => theme.palette.primary.main};
+  background-color: ${({ theme }) => theme.palette.common.red};
   height: 100%;
-  width: 3px;
+  width: 4px;
   border-radius: 1rem;
 `;
