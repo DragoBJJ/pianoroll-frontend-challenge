@@ -5,15 +5,15 @@ import { SvgContainer } from "./style";
 type SvgType = {
   height?: string;
   width?: string;
-  selectingSequenceComponents?: SelectionComponent["selectionComponent"];
+  selectionComponents?: SelectionComponent["selectionComponent"];
 };
 export const Svg = forwardRef(
   (
-    { selectingSequenceComponents, height, width }: SvgType,
+    { selectionComponents, height, width }: SvgType,
     ref: LegacyRef<SVGSVGElement>
   ) => {
     const { handleMouseDown, handleMouseMove, handleMouseUp } =
-      selectingSequenceComponents || {};
+      selectionComponents || {};
 
     return (
       <SvgContainer

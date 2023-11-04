@@ -1,11 +1,9 @@
 "use client";
 
-import { UsePianoContext } from "@/context/pianoContext";
 import { PianoRollCard } from "@/components/molecules/PianoRoll";
-import { useEffect } from "react";
 import { PianoList } from "@/components/molecules/PianoList";
 import { Wrapper } from "./style";
-import { UseInteractiveSelection } from "@/hook/useInteractiveSelection";
+import { UseGetDetailSequences } from "@/hook/useGetDetailSequences";
 
 type PageType = {
   params: { id: string };
@@ -13,21 +11,15 @@ type PageType = {
 };
 
 export default function Page({ params: { id } }: PageType) {
-  const { getPianoSequenceByID, getNeighbourSequences, getPianoSequences } =
-    UsePianoContext();
+  const { mainSequence, neighbourSequences } = UseGetDetailSequences(
+    Number(id)
+  );
 
-  const pianoSequence = getPianoSequenceByID(Number(id));
-  const neighbourSequences = getNeighbourSequences(Number(id));
-
-  useEffect(() => {
-    if (!pianoSequence || !neighbourSequences) getPianoSequences();
-  }, [getPianoSequences, id, pianoSequence, neighbourSequences]);
-
-  return pianoSequence && neighbourSequences ? (
+  return mainSequence && neighbourSequences ? (
     <Wrapper>
       <PianoRollCard
-        rollID={pianoSequence.id}
-        sequence={pianoSequence.sequence}
+        rollID={mainSequence.id}
+        sequence={mainSequence.sequence}
         isDetailPage
       />
       <PianoList pianoSequences={neighbourSequences} />

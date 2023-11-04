@@ -1,5 +1,5 @@
 import { Ref, memo } from "react";
-import { SelectedArea, SelectedLine } from "./style";
+import { SelectedArea, SelectedLine, SvgWrapper } from "./style";
 import { Svg } from "@/components/atoms/Svg";
 import { Sequence } from "@/data/types";
 import { UseInteractiveSelection } from "@/hook/useInteractiveSelection";
@@ -11,18 +11,18 @@ type DetailCardType = {
 
 export const PianoRollDetailCard = memo<DetailCardType>(
   ({ svgRef, sequence }) => {
-    const { selectionComponent } = UseInteractiveSelection(sequence);
+    const { selectionComponents } = UseInteractiveSelection(sequence);
     return (
-      <>
+      <SvgWrapper>
         <SelectedArea id="selected-area" />
         <SelectedLine id="selected-line" />
         <Svg
-          selectingSequenceComponents={selectionComponent}
+          selectionComponents={selectionComponents}
           height="100%"
           width="100%"
           ref={svgRef}
         />
-      </>
+      </SvgWrapper>
     );
   }
 );

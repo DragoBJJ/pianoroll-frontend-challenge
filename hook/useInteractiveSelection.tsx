@@ -1,9 +1,13 @@
 import {
   calculatingDistance,
   calculatingSequenceIndex,
+  setSelectedArea,
+  getSelectingSequence,
+  moveSelectingLine,
+  initializeSelectedArea,
 } from "@/app/utils/calculatingFunction";
 import { Sequence, SvgEventType } from "@/data/types";
-import { memo, useState } from "react";
+import { useState } from "react";
 
 export const UseInteractiveSelection = (sequence: Sequence) => {
   const [isSelecting, setIsSelecting] = useState(false);
@@ -17,53 +21,39 @@ export const UseInteractiveSelection = (sequence: Sequence) => {
     sequence
   );
   const handleMouseDown = (e: SvgEventType) => {
-    if (!sequence) return;
+    if (!sequence || !selectedArea) return;
     setIsSelecting(true);
     const distancePercent = calculatingDistance(e);
     const startIndex = calculatingSequenceIndex(
       distancePercent,
       sequence.length
     );
-
     setStartPoint(distancePercent);
     setStartIndex(startIndex);
-    if (selectedArea) {
-      selectedArea.style.width = `0%`;
-      selectedArea.style.left = `${distancePercent}%`;
-    }
+    initializeSelectedArea(selectedArea, distancePercent);
     console.log("startPoint", distancePercent);
   };
 
   const handleMouseUp = (e: SvgEventType) => {
-    if (!sequence) return;
+    if (!sequence || !startIndex) return;
     setIsSelecting(false);
-    const percet = calculatingDistance(e);
-    const endIndex = calculatingSequenceIndex(percet, sequence.length);
-    const newSequence = sequence.slice(startIndex, endIndex);
+    const newSequence = getSelectingSequence(e, sequence, startIndex);
     setNewSequence(newSequence);
-    console.log("StartIndex", startIndex);
-    console.log("endIndex", endIndex);
-
     console.log("Your New Sequnce Is: ", newSequence);
   };
 
   const handleMouseMove = (e: SvgEventType) => {
-    if (!selectedLine || !sequence) return;
     const distancePercent = calculatingDistance(e);
-    const SPACE_TO_DROP = 1;
-    selectedLine.style.left = `${distancePercent - SPACE_TO_DROP}%`;
-    console.log("distancePercent", selectedLine.style.left);
+    if (!selectedLine || !sequence) return;
+    moveSelectingLine(e, selectedLine, distancePercent);
     if (!isSelecting) return;
-
     calculatingSequenceIndex(distancePercent, sequence.length);
-    if (selectedArea && startPoint) {
-      const move = distancePercent - startPoint;
-      selectedArea.style.width = `${move - SPACE_TO_DROP}%`;
-    }
+    if (!selectedArea || !startPoint) return;
+    setSelectedArea(selectedArea, distancePercent, startPoint);
   };
 
   return {
-    selectionComponent: {
+    selectionComponents: {
       handleMouseDown,
       handleMouseMove,
       handleMouseUp,
