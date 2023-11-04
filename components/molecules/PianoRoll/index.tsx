@@ -5,24 +5,35 @@ import { Svg } from "@/components/atoms/Svg";
 import { PianoRollDetailCard } from "./PianoRollDetailCard";
 import { UseInitializeSequence } from "@/hook/useInitializeSequence";
 
-type PianoRollCardType = {
+export type PianoRollCardType = {
   rollID: number;
   sequence: Sequence;
+  title?: string;
   isDetailPage?: boolean;
   isBorder?: boolean;
 };
 
 export const PianoRollCard = memo<PianoRollCardType>(
-  ({ rollID, sequence, isDetailPage, isBorder }) => {
+  ({
+    rollID,
+    title = `This is a piano roll number ${rollID}`,
+    sequence,
+    isDetailPage,
+    isBorder,
+  }) => {
     const svgRef = useRef<SVGSVGElement>(null);
 
     UseInitializeSequence({ svgRef, sequence, rollID });
 
     return (
       <Wrapper $isDetailPage={isDetailPage} $hasBorder={isBorder}>
-        <Text>This is a piano roll number {rollID}</Text>
+        <Text>{title}</Text>
         {isDetailPage ? (
-          <PianoRollDetailCard svgRef={svgRef} sequence={sequence} />
+          <PianoRollDetailCard
+            rollID={rollID}
+            svgRef={svgRef}
+            sequence={sequence}
+          />
         ) : (
           <Svg height="80%" width="80%" ref={svgRef} />
         )}

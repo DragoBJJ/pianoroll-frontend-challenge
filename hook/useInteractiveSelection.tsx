@@ -18,12 +18,12 @@ export const UseInteractiveSelection = (sequence: Sequence) => {
     document.getElementById("selected-area");
   let selectedLine: HTMLElement | null;
 
-  const [newSequence, setNewSequence] = useState<Sequence | undefined>(
-    sequence
-  );
+  const [newSequence, setNewSequence] = useState<Sequence | null>();
+
   const handleMouseDown = (e: SvgEventType) => {
     if (!sequence || !selectedArea) return;
     setIsSelecting(true);
+    setNewSequence(null);
     const distancePercent = calculatingDistance(e);
     const startIndex = calculatingSequenceIndex(
       distancePercent,
@@ -58,5 +58,6 @@ export const UseInteractiveSelection = (sequence: Sequence) => {
       handleMouseMove,
       handleMouseUp,
     },
+    newSequence,
   };
 };

@@ -3,7 +3,8 @@ import { Sequence, SvgEventType } from "@/data/types";
 export const calculatingDistance = (e: SvgEventType) => {
   const { left, width } = e.currentTarget.getBoundingClientRect();
   const distance = e.pageX - left;
-  const percent = Math.round((distance / width) * 100);
+  let percent = Math.round((distance / width) * 100);
+  if (percent < 0) percent = 0;
   return percent;
 };
 
