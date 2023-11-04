@@ -44,9 +44,12 @@ export const SvgWrapper = styled.div`
 
 export const SelectedArea = styled.div`
   position: absolute;
+  z-index: 2;
   left: 0;
   background: ${({ theme }) => theme.palette.common.red};
   box-shadow: 0 4px 30px ${({ theme }) => theme.palette.common.red};
+  opacity: 0.6;
+  border-radius: 0.5rem;
   backdrop-filter: blur(3.9px);
   -webkit-backdrop-filter: blur(3.9px);
   width: 0;
@@ -55,7 +58,7 @@ export const SelectedArea = styled.div`
 
 export const SelectedLine = styled.div`
   position: absolute;
-  z-index: 999;
+  z-index: 1;
   top: 0;
   bottom: 0;
   left: 0;
