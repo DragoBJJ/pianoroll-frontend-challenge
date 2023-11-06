@@ -4,14 +4,14 @@ import {
   setSelectedArea,
   getSelectingSequence,
   moveSelectingLine,
-  initializeSelectedArea,
+  clearSelectedArea,
 } from "@/app/utils/calculatingFunction";
 import { Sequence, SvgEventType } from "@/data/types";
 import { useState } from "react";
 
 export const UseInteractiveSelection = (sequence: Sequence) => {
   const [isSelecting, setIsSelecting] = useState(false);
-  const [startPoint, setStartPoint] = useState<number | null>(null);
+  const [startPoint, setStartPoint] = useState<number>();
   const [startIndex, setStartIndex] = useState<number>();
 
   let selectedArea: HTMLElement | null =
@@ -24,6 +24,7 @@ export const UseInteractiveSelection = (sequence: Sequence) => {
     if (!sequence || !selectedArea) return;
     setIsSelecting(true);
     setNewSequence(null);
+    clearSelectedArea(selectedArea);
     const distancePercent = calculatingDistance(e);
     const startIndex = calculatingSequenceIndex(
       distancePercent,
@@ -31,7 +32,6 @@ export const UseInteractiveSelection = (sequence: Sequence) => {
     );
     setStartPoint(distancePercent);
     setStartIndex(startIndex);
-    initializeSelectedArea(selectedArea, distancePercent);
     console.log("startPoint", distancePercent);
   };
 

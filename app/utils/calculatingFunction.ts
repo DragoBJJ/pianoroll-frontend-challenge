@@ -39,14 +39,8 @@ export const moveSelectingLine = (
   console.log("distancePercent", selectedLine.style.left);
 };
 
-export const initializeSelectedArea = (
-  selectedArea: HTMLElement | null,
-  distancePercent: number
-) => {
-  if (selectedArea) {
-    selectedArea.style.width = `0%`;
-    selectedArea.style.left = `${distancePercent}%`;
-  }
+export const clearSelectedArea = (selectedArea: HTMLElement | null) => {
+  if (selectedArea) selectedArea.style.width = `0%`;
 };
 
 export const setSelectedArea = (
@@ -57,6 +51,7 @@ export const setSelectedArea = (
   const SPACE_TO_DROP = 1;
   const move = distancePercent - startPoint;
   if (selectedArea) {
+    selectedArea.style.left = `${startPoint}%`;
     selectedArea.style.width = `${move - SPACE_TO_DROP}%`;
   }
   return selectedArea;
