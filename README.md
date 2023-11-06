@@ -16,6 +16,5 @@
 
 ### Demo
 
-<video width="420" height="240" controls>
-  <source src="./video/bandicam%202023-11-06%2009-35-11-169.mp4" type="video/mp4">
-</video>
+https://github.com/DragoBJJ/pianoroll-frontend-challenge/assets/73502549/bb39cbd1-6ef9-41f7-80b9-bd3e201e2fd5
+
