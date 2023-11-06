@@ -15,3 +15,7 @@
    In addition to these key points, the code is clean, easy to read, well-organized, and properly documented, which meets the code quality criteria. Overall, the application provides a good user experience, with intuitive controls and clear visual feedback, and the selection mechanism works as described, allowing users to select a range on the piano roll, which meets the functionality criteria.
 
 ### Demo
+
+<video width="820" height="400" controls>
+  <source src="./video/bandicam%202023-11-06%2009-35-11-169.mp4" type="video/mp4">
+</video>
