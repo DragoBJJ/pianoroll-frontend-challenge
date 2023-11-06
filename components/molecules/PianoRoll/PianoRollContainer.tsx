@@ -7,14 +7,14 @@ import { Button } from "@/components/atoms/Button";
 import { NavLink } from "@/components/atoms/Link";
 
 export const PianoRollContainer = () => {
-  const { getPianoSequences, PianoSequence } = UsePianoContext();
+  const { getPianoSequences, pianoSequences } = UsePianoContext();
 
   return (
     <>
       <Button handler={getPianoSequences} text="Load Piano rolls !" />
       <PianoRollsTemplate>
-        {PianoSequence.length ? (
-          PianoSequence.map(({ id, sequence }) => {
+        {pianoSequences.length ? (
+          pianoSequences.map(({ id, sequence }) => {
             return (
               <NavLink key={id} href={`/piano/${id}`}>
                 <PianoRollCard rollID={id} sequence={sequence} isBorder />

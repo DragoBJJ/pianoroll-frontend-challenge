@@ -5,7 +5,7 @@ import { PianoSequence } from "@/data/types";
 import { ReactNode, createContext, memo, useContext, useState } from "react";
 
 type PianoContextType = {
-  PianoSequence: PianoSequence[];
+  pianoSequences: PianoSequence[];
   getPianoSequences: () => Promise<void>;
   getPianoSequenceByID: (id: PianoSequence["id"]) => PianoSequence | undefined;
   getNeighbourSequences: (id: number) => PianoSequence[];
@@ -15,25 +15,26 @@ export const PianoContext = createContext<PianoContextType | null>(null);
 
 export const PianoContextProvider = memo<{ children: ReactNode }>(
   ({ children }) => {
-    const [PianoSequence, setPianoData] = useState<PianoSequence[]>([]);
+    const [pianoSequences, setPianoSequences] = useState<PianoSequence[]>([]);
 
     const getPianoSequences = async () => {
+      if (pianoSequences.length) return;
       const pianoRollFacotry = new PianoRollDisplay();
-      setPianoData(await pianoRollFacotry.getPianoSequences());
+      setPianoSequences(await pianoRollFacotry.getPianoSequences());
     };
 
     const getPianoSequenceByID = (id: PianoSequence["id"]) => {
-      return PianoSequence.find((piano) => piano.id === Number(id));
+      return pianoSequences.find((piano) => piano.id === Number(id));
     };
 
     const getNeighbourSequences = (id: PianoSequence["id"]) => {
-      return PianoSequence.filter((piano) => piano.id !== Number(id));
+      return pianoSequences.filter((piano) => piano.id !== Number(id));
     };
 
     return (
       <PianoContext.Provider
         value={{
-          PianoSequence,
+          pianoSequences,
           getPianoSequences,
           getPianoSequenceByID,
           getNeighbourSequences,
