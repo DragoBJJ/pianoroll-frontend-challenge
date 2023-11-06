@@ -16,6 +16,6 @@
 
 ### Demo
 
-<video width="820" height="400" controls>
+<video width="420" height="240" controls>
   <source src="./video/bandicam%202023-11-06%2009-35-11-169.mp4" type="video/mp4">
 </video>
