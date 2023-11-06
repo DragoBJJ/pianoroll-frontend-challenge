@@ -15,9 +15,5 @@
    In addition to these key points, the code is clean, easy to read, well-organized, and properly documented, which meets the code quality criteria. Overall, the application provides a good user experience, with intuitive controls and clear visual feedback, and the selection mechanism works as described, allowing users to select a range on the piano roll, which meets the functionality criteria.
 
 ### Demo
-<<<<<<< HEAD
-=======
 
 https://github.com/DragoBJJ/pianoroll-frontend-challenge/assets/73502549/bb39cbd1-6ef9-41f7-80b9-bd3e201e2fd5
-
->>>>>>> f96916ba7ca93526ec5aafe6340dd8e9d5f4f383
