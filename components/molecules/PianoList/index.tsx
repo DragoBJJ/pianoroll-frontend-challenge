@@ -17,7 +17,7 @@ export const PianoList = memo<PianoListType>(({ pianoSequences }) => {
         pianoSequences.map(({ id, sequence }) => {
           return (
             <NavLink key={id} href={`/piano/${id}`}>
-              <PianoRollCard rollID={id} sequence={sequence} />;
+              <PianoRollCard rollID={id} sequence={sequence} />
             </NavLink>
           );
         })
